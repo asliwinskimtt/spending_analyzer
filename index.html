@@ -255,18 +255,15 @@ function saveCats(cb) {
 }
 
 function init() {
-  window.storage.get('userCats').then(function(r) {
-    if (r && r.value) {
-      try {
-        var p = JSON.parse(r.value);
-        if (!p['Inne']) p['Inne'] = [];
-        userCats = p;
-      } catch(e) {}
+  try {
+    var backup = localStorage.getItem('userCats_backup');
+    if (backup) {
+      var p = JSON.parse(backup);
+      if (!p['Inne']) p['Inne'] = [];
+      userCats = p;
     }
-    document.getElementById('upload-section').style.display = 'block';
-  }).catch(function() {
-    document.getElementById('upload-section').style.display = 'block';
-  });
+  } catch(e) {}
+  document.getElementById('upload-section').style.display = 'block';
 }
 init();
 
